@@ -7,8 +7,16 @@
 //
 
 #import "CKAAppDelegate.h"
+#import "SCUI.h"
 
 @implementation CKAAppDelegate
+
++ (void) initialize
+{
+    [SCSoundCloud setClientID:@"ee896b97c7d272f7c7c2e3c2d73930c3"
+                       secret:@"8dc08e41ed481e76a8eca3c7e015e223"
+                  redirectURL:[NSURL URLWithString:@"sampleproject://oauth"]];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

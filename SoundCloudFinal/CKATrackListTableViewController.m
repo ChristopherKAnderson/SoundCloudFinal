@@ -18,6 +18,7 @@
 @property (strong, nonatomic) BIDFavoritesList *favoritesList;
 @property (strong, nonatomic) NSString *trackDesc;
 @property (strong, nonatomic) NSArray *favTracks;
+@property int fav;
 
 @end
 
@@ -171,10 +172,10 @@ titleForHeaderInSection:(NSInteger)section {
         
         //cell.textLabel.text = [self.favTracks objectAtIndex:indexPath.row];
         
-        int fav = [[self.favTracks objectAtIndex:indexPath.row] integerValue];
-        NSDictionary *track = [self.tracks objectAtIndex:fav];
+        self.fav = [[self.favTracks objectAtIndex:indexPath.row] integerValue];
+        NSDictionary *track = [self.tracks objectAtIndex:self.fav];
         cell.textLabel.text = [track objectForKey:@"title"];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", fav];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", self.fav];
     }
     return cell;
 }
@@ -286,12 +287,21 @@ titleForHeaderInSection:(NSInteger)section {
     targetVC.received = _trackDesc;
     targetVC.favoriteTrack = track;
     
-    id checkFav = [NSString stringWithFormat:@"%d", indexPath.row];
-    targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
-                            containsObject:checkFav];
-    BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
-                  containsObject:checkFav];
-    targetVC.returnPath = indexPath.row;
+    if (indexPath.section == 0) {
+        id checkFav = [NSString stringWithFormat:@"%d", indexPath.row];
+        targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
+                             containsObject:checkFav];
+        BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
+                      containsObject:checkFav];
+        targetVC.returnPath = indexPath.row;
+    } else {
+        id checkFav = [NSString stringWithFormat:@"%d", self.fav];
+        targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
+                             containsObject:checkFav];
+        BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
+                      containsObject:checkFav];
+        targetVC.returnPath = self.fav;
+    }
     
     // BID Set delegate reference
     CKATrackInfoViewController *controller = segue.destinationViewController;
@@ -316,6 +326,6 @@ titleForHeaderInSection:(NSInteger)section {
         [tableView reloadData];
     }
     */
-    
+    [self.tableView reloadData];
 }
 @end

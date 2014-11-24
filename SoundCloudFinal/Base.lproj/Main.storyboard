@@ -180,7 +180,7 @@
         <scene sceneID="xhx-Hp-Y6G">
             <objects>
                 <navigationController definesPresentationContext="YES" id="vz4-Hx-0fC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Get Tracks" id="3uq-DO-8sf"/>
+                    <tabBarItem key="tabBarItem" title="Get Tracks" image="pitr_green_single_arrows_set_2" id="3uq-DO-8sf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="19c-CW-l5e">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -222,7 +222,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="SoundCloud Login" id="dcF-iH-7ex"/>
+                    <tabBarItem key="tabBarItem" title="SoundCloud Login" image="artmaster_login_mini_icon" id="dcF-iH-7ex"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Nl-Li-yKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -274,7 +274,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Upload Tracks" id="Suk-6x-b4F"/>
+                    <tabBarItem key="tabBarItem" title="Upload Tracks" image="pitr_green_single_arrows_set_3" id="Suk-6x-b4F"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uno-g6-ZTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -312,6 +312,11 @@
             <point key="canvasLocation" x="1293" y="-157"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="artmaster_login_mini_icon" width="24" height="24"/>
+        <image name="pitr_green_single_arrows_set_2" width="24" height="24"/>
+        <image name="pitr_green_single_arrows_set_3" width="24" height="24"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

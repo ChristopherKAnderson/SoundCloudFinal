@@ -20,6 +20,8 @@
     NSMutableArray *_objects;
 }
 
+@property (weak, nonatomic) IBOutlet UIPickerView *trackPicker;
+
 @end
 
 @implementation CKAViewController
@@ -236,10 +238,31 @@
     [shareViewController setPrivate:YES];
     [self presentModalViewController:shareViewController animated:YES];
 }
+- (IBAction)selectTrack:(id)sender {
+    
+    NSInteger row = [self.trackPicker selectedRowInComponent:0];
+    NSString *selected = _objects[row];
+    NSString *title = [[NSString alloc] initWithFormat:
+                       @"You selected %@!", selected];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:@"Upload Stored Track"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"Selection Changed"
+                                          otherButtonTitles:nil];
+    [alert show];
+    
+    // Set Audio File
+    self.name.text = selected;
+    NSString *fileName = [NSString stringWithFormat:@"%@.aac", self.name.text];
+    NSArray *pathComponents = [NSArray arrayWithObjects:
+                               [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], fileName, nil];
+    self.outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+}
 
 - (IBAction)playTapped:(id)sender {
     if (!recorder.recording){
-        player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
+        //player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.outputFileURL error:nil];
         [player setDelegate:self];
         [player play];
     }
@@ -301,10 +324,13 @@
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
-    //[_objects addObject:self.name.text];
-    NSString *string = self.name.text;
-    NSString *newItem = [NSString stringWithFormat:@"%@.aac", string];
-    [_objects addObject:newItem];
+    [_objects addObject:self.name.text];
+    //NSString *string = self.name.text;
+    //NSString *newItem = [NSString stringWithFormat:@"%@.aac", string];
+    //[_objects addObject:newItem];
+    //[_objects addObject:self.outputFileURL];
+    
+    [self.trackPicker reloadAllComponents];
 }
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
@@ -346,5 +372,24 @@
         [recorder updateMeters];
     }
 }
+
+#pragma mark -
+#pragma mark Picker Data Source Methods
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [_objects count];
+}
+
+#pragma mark Picker Delegate Methods
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return _objects[row];
+}
+
 
 @end

@@ -10,10 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface CKAViewController : UIViewController
-<AVAudioRecorderDelegate, AVAudioPlayerDelegate, AVAssetResourceLoaderDelegate>
+<AVAudioRecorderDelegate, AVAudioPlayerDelegate, AVAssetResourceLoaderDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UISearchDisplayDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
+@property (weak, nonatomic) IBOutlet UIButton *uploadButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectTrackButton;
 @property (weak, nonatomic) NSTimer *currentTimeUpdateTimer;
 @property NSURL *outputFileURL;
 

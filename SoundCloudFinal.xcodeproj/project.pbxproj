@@ -40,6 +40,8 @@
 		04AC52391A201ACA00802476 /* CKATrackListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC52381A201ACA00802476 /* CKATrackListTableViewController.m */; };
 		04AC523C1A204A6700802476 /* BIDFavoritesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC523B1A204A6700802476 /* BIDFavoritesList.m */; };
 		04AC523F1A2052BF00802476 /* CKATrackInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC523E1A2052BF00802476 /* CKATrackInfoViewController.m */; };
+		04D26BD01A293702000E5B4E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D26BCF1A293702000E5B4E /* libsqlite3.dylib */; };
+		04D26BD21A298AAA000E5B4E /* example.aac in Resources */ = {isa = PBXBuildFile; fileRef = 04D26BD11A298AAA000E5B4E /* example.aac */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +202,8 @@
 		04AC523B1A204A6700802476 /* BIDFavoritesList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFavoritesList.m; sourceTree = "<group>"; };
 		04AC523D1A2052BF00802476 /* CKATrackInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKATrackInfoViewController.h; sourceTree = "<group>"; };
 		04AC523E1A2052BF00802476 /* CKATrackInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKATrackInfoViewController.m; sourceTree = "<group>"; };
+		04D26BCF1A293702000E5B4E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		04D26BD11A298AAA000E5B4E /* example.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = example.aac; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D26BD01A293702000E5B4E /* libsqlite3.dylib in Frameworks */,
 				042E02CD1A0C753D00B670DF /* AVFoundation.framework in Frameworks */,
 				04AB8AF81A0C5D89004B1441 /* Security.framework in Frameworks */,
 				04AB8AF61A0C5D78004B1441 /* QuartzCore.framework in Frameworks */,
@@ -265,6 +270,7 @@
 		04AB8A7B1A0C5BB8004B1441 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04D26BCF1A293702000E5B4E /* libsqlite3.dylib */,
 				042E02CC1A0C753D00B670DF /* AVFoundation.framework */,
 				04AB8AF71A0C5D89004B1441 /* Security.framework */,
 				04AB8AF51A0C5D78004B1441 /* QuartzCore.framework */,
@@ -283,9 +289,10 @@
 		04AB8A821A0C5BB8004B1441 /* SoundCloudFinal */ = {
 			isa = PBXGroup;
 			children = (
+				04D26BD11A298AAA000E5B4E /* example.aac */,
+				042E02CE1A0C7BA600B670DF /* example.mp3 */,
 				04AC523A1A204A6700802476 /* BIDFavoritesList.h */,
 				04AC523B1A204A6700802476 /* BIDFavoritesList.m */,
-				042E02CE1A0C7BA600B670DF /* example.mp3 */,
 				04AB8A8B1A0C5BB8004B1441 /* CKAAppDelegate.h */,
 				04AB8A8C1A0C5BB8004B1441 /* CKAAppDelegate.m */,
 				04AB8A8E1A0C5BB8004B1441 /* Main.storyboard */,
@@ -562,6 +569,7 @@
 				042E02CF1A0C7BA600B670DF /* example.mp3 in Resources */,
 				042E02CB1A0C726000B670DF /* CKATrackListViewController.xib in Resources */,
 				04AB8A901A0C5BB8004B1441 /* Main.storyboard in Resources */,
+				04D26BD21A298AAA000E5B4E /* example.aac in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,6 +673,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -696,6 +705,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -703,6 +713,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -726,14 +737,17 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
 		04AB8AAC1A0C5BB8004B1441 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -744,11 +758,13 @@
 					"$PROJECT_DIR/**",
 				);
 				INFOPLIST_FILE = "SoundCloudFinal/SoundCloudFinal-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -756,6 +772,7 @@
 		04AB8AAD1A0C5BB8004B1441 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -766,11 +783,13 @@
 					"$PROJECT_DIR/**",
 				);
 				INFOPLIST_FILE = "SoundCloudFinal/SoundCloudFinal-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

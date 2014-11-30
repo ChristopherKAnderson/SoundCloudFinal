@@ -12,9 +12,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="uQe-pz-ax4">
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="UWa-kv-VcJ" id="tbY-4d-z01"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NormalCell" textLabel="kF7-S3-Wfi" detailTextLabel="1J0-J0-Npy" style="IBUITableViewCellStyleSubtitle" id="Gln-8F-YxB">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="130" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gln-8F-YxB" id="W26-Xq-ymK">
                                     <rect key="frame" x="0.0" y="0.0" width="273" height="43"/>
@@ -41,7 +49,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavoritesCell" textLabel="8MJ-Pd-B17" detailTextLabel="4bM-P0-BOg" style="IBUITableViewCellStyleSubtitle" id="noG-tx-5Gv">
-                                <rect key="frame" x="0.0" y="130" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="174" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="noG-tx-5Gv" id="nyi-2H-fIx">
                                     <rect key="frame" x="0.0" y="0.0" width="273" height="43"/>
@@ -74,8 +82,21 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My SoundCloud Tracks" id="CsJ-X9-UEZ"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="7V7-tX-Jle" id="gzT-jA-6B0"/>
+                        <outlet property="trackSearchBar" destination="uQe-pz-ax4" id="ksM-5H-Y5s"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKG-Kt-AMT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="7V7-tX-Jle">
+                    <connections>
+                        <outlet property="delegate" destination="UWa-kv-VcJ" id="b2d-W9-uof"/>
+                        <outlet property="searchBar" destination="uQe-pz-ax4" id="grv-Do-nsU"/>
+                        <outlet property="searchContentsController" destination="UWa-kv-VcJ" id="BHQ-d3-FrY"/>
+                        <outlet property="searchResultsDataSource" destination="UWa-kv-VcJ" id="tUo-5a-en5"/>
+                        <outlet property="searchResultsDelegate" destination="UWa-kv-VcJ" id="xv0-AX-wDO"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1014" y="730"/>
         </scene>

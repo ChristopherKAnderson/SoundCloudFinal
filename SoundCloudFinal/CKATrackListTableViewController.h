@@ -10,9 +10,14 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface CKATrackListTableViewController : UITableViewController
-<AVAudioPlayerDelegate>
+<AVAudioPlayerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic, strong) NSArray *tracks;
 @property (nonatomic, strong) AVAudioPlayer *player;
+
+//@property (strong,nonatomic) NSMutableArray *filteredTracks;
+@property (strong,nonatomic) NSArray *filteredTracks;
+
+@property IBOutlet UISearchBar *trackSearchBar;
 
 @end

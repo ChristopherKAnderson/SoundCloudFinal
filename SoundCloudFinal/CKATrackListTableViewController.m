@@ -13,11 +13,14 @@
 #import "CKATrackInfoViewController.h"
 #import "SCUI.H"
 #import <AVFoundation/AVFoundation.h>
+#import "CKATrack.h"
+#import "CKATrack1.h"
 
 @interface CKATrackListTableViewController ()
 @property (strong, nonatomic) BIDFavoritesList *favoritesList;
 @property (strong, nonatomic) NSString *trackDesc;
 @property (strong, nonatomic) NSArray *favTracks;
+//@property (strong, nonatomic) CKATrack *searchTrack;
 @property int fav;
 
 @end
@@ -25,6 +28,9 @@
 @implementation CKATrackListTableViewController
 @synthesize tracks;
 @synthesize player;
+
+@synthesize filteredTracks;
+@synthesize trackSearchBar;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -38,6 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -71,7 +79,20 @@
             //trackListVC = [[CKATrackListViewController alloc]
             //               initWithNibName:@"CKATrackListViewController"
             //               bundle:nil];
+            
+            
+            // default
             self.tracks = (NSArray *)jsonResponse;
+            
+            
+            /*
+            // experimental
+            //tracks = [NSArray arrayWithArray:(NSArray *)jsonResponse];
+            tracks = [NSArray arrayWithObjects:
+                       [CKATrack1 name: [tracks objectAtIndex:0]],
+                       [CKATrack1 name: [tracks objectAtIndex:1]], nil];
+            */
+            
             //[self presentViewController:trackListVC
             //                  animated:YES completion:nil];
             [self.tableView reloadData];
@@ -87,6 +108,10 @@
              responseHandler:handler];
     
     self.favTracks = [BIDFavoritesList sharedFavoritesList].favorites;
+    
+    // Initialize the filteredCandyArray with a capacity equal to the candyArray's capacity
+    //filteredTracks = [NSMutableArray arrayWithCapacity:[tracks count]];
+    //filteredTracks = tracks;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,7 +143,11 @@
     // Return the number of rows in the section.
     // Return the number of rows in the section.
     if (section == 0) {
-        return [self.tracks count];
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            return [filteredTracks count];
+        } else {
+            return [tracks count];
+        }
     } else {
         return [self.favTracks count];
     }
@@ -153,9 +182,41 @@ titleForHeaderInSection:(NSInteger)section {
         NSString *subtitle = [NSString stringWithFormat:@"%d", row];
         NSLog(@"row = %d", row);
         
-        NSDictionary *track = [self.tracks objectAtIndex:indexPath.row];
-        cell.textLabel.text = [track objectForKey:@"title"];
-        cell.detailTextLabel.text = subtitle;
+        //Track for search
+        // Create a new Track Object
+        //CKATrack *searchTrack = nil;
+        
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            /*
+            NSDictionary *track = [self.filteredTracks objectAtIndex:indexPath.row];
+            cell.textLabel.text = [track objectForKey:@"title"];
+            cell.detailTextLabel.text = subtitle;
+            */
+            
+            NSDictionary *track = [filteredTracks objectAtIndex:indexPath.row];
+            cell.textLabel.text = [track objectForKey:@"title"];
+            cell.detailTextLabel.text = subtitle;
+            
+        }
+        else {
+            /*
+            NSDictionary *track = [self.tracks objectAtIndex:indexPath.row];
+            cell.textLabel.text = [track objectForKey:@"title"];
+            cell.detailTextLabel.text = subtitle;
+            */
+            
+            //self.searchTrack = nil;
+            //searchTrack = [tracks objectAtIndex:indexPath.row];
+            //NSDictionary *track = [self.filteredTracks objectAtIndex:indexPath.row];
+            //cell.textLabel.text = [searchTrack.name objectForKey:@"title"];
+            //cell.detailTextLabel.text = subtitle;
+            //[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+            
+            NSDictionary *track = [tracks objectAtIndex:indexPath.row];
+            cell.textLabel.text = [track objectForKey:@"title"];
+            cell.detailTextLabel.text = subtitle;
+            
+        }
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:FavoritesCell];
                                                //forIndexPath:indexPath];
@@ -328,4 +389,42 @@ titleForHeaderInSection:(NSInteger)section {
     */
     [self.tableView reloadData];
 }
+
+#pragma mark Content Filtering
+-(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+    // Update the filtered array based on the search text and scope.
+    // Remove all objects from the filtered search array
+    //[self.filteredTracks removeAllObjects];
+    // Filter the array using NSPredicate
+    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchText];
+    //filteredTracks = [NSMutableArray arrayWithArray:[tracks filteredArrayUsingPredicate:predicate]];
+    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@",searchText];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF ['title'] contains[cd] %@",searchText];
+    filteredTracks = [tracks filteredArrayUsingPredicate:predicate];
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    // Tells the table data source to reload when text changes
+    /*
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    */
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+     // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+/*
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    // Tells the table data source to reload when scope bar selection changes
+    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+*/
+ 
 @end

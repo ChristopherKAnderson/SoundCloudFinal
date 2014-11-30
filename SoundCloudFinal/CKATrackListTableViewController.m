@@ -82,7 +82,7 @@
             
             
             // default
-            self.tracks = (NSArray *)jsonResponse;
+            tracks = (NSArray *)jsonResponse;
             
             
             /*
@@ -197,6 +197,9 @@ titleForHeaderInSection:(NSInteger)section {
             cell.textLabel.text = [track objectForKey:@"title"];
             cell.detailTextLabel.text = subtitle;
             
+            // I'm losing my detail button when search is used
+            //cell.accessoryType = UITableViewCellAccessoryDetailButton;
+            
         }
         else {
             /*
@@ -284,22 +287,42 @@ titleForHeaderInSection:(NSInteger)section {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        NSDictionary *track = [self.tracks objectAtIndex:indexPath.row];
-        NSString *streamURL = [track objectForKey:@"stream_url"];
+        
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            NSDictionary *track = [filteredTracks objectAtIndex:indexPath.row];
+            NSString *streamURL = [track objectForKey:@"stream_url"];
     
-        SCAccount *account = [SCSoundCloud account];
+            SCAccount *account = [SCSoundCloud account];
     
-        [SCRequest performMethod:SCRequestMethodGET
-                      onResource:[NSURL URLWithString:streamURL]
-                 usingParameters:nil
-                     withAccount:account
-          sendingProgressHandler:nil
-                 responseHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                     NSError *playerError;
-                     player = [[AVAudioPlayer alloc] initWithData:data error:&playerError];
-                     [player prepareToPlay];
-                     [player play];
-                 }];
+            [SCRequest performMethod:SCRequestMethodGET
+                          onResource:[NSURL URLWithString:streamURL]
+                     usingParameters:nil
+                         withAccount:account
+              sendingProgressHandler:nil
+                     responseHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                         NSError *playerError;
+                         player = [[AVAudioPlayer alloc] initWithData:data error:&playerError];
+                         [player prepareToPlay];
+                         [player play];
+                     }];
+        } else {
+            NSDictionary *track = [tracks objectAtIndex:indexPath.row];
+            NSString *streamURL = [track objectForKey:@"stream_url"];
+            
+            SCAccount *account = [SCSoundCloud account];
+            
+            [SCRequest performMethod:SCRequestMethodGET
+                          onResource:[NSURL URLWithString:streamURL]
+                     usingParameters:nil
+                         withAccount:account
+              sendingProgressHandler:nil
+                     responseHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                         NSError *playerError;
+                         player = [[AVAudioPlayer alloc] initWithData:data error:&playerError];
+                         [player prepareToPlay];
+                         [player play];
+                     }];
+        }
     } else {
         int fav = [[self.favTracks objectAtIndex:indexPath.row] integerValue];
         NSDictionary *track = [self.tracks objectAtIndex:fav];
@@ -335,8 +358,15 @@ titleForHeaderInSection:(NSInteger)section {
     //NSString *subtitle = [NSString stringWithFormat:@"%d", row];
     NSLog(@"row = %d", row);
     
-    NSDictionary *track = [self.tracks objectAtIndex:indexPath.row];
-    NSString *titleLabel = [track objectForKey:@"title"];
+    NSDictionary *track;
+    NSString *titleLabel;
+    if (self.tableView == self.searchDisplayController.searchResultsTableView) {
+        track = [filteredTracks objectAtIndex:indexPath.row];
+        titleLabel = [track objectForKey:@"title"];
+    } else {
+        track = [tracks objectAtIndex:indexPath.row];
+        titleLabel = [track objectForKey:@"title"];
+    }
     
     //infoVC.titleLabel = titleLabel;
     //infoVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites

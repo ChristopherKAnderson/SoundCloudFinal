@@ -18,7 +18,10 @@
 
 @end
 
-@implementation CKATrackInfoViewController
+@implementation CKATrackInfoViewController {
+    SystemSoundID removeFavSoundID;
+    SystemSoundID addFavSoundID;
+}
 
 #pragma mark - Managing the detail item
 
@@ -60,6 +63,23 @@
     self.returnPathBack = self.returnPath;
     self.index = [NSString stringWithFormat:@"%d", self.returnPath];
     //NSObject *test = self.favoriteTrack;
+    
+    // create sound when adding favorite
+    if (addFavSoundID == 0) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"bell"
+                                                         ofType:@"wav"];
+        NSURL *soundURL = [NSURL fileURLWithPath:path];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL,
+                                         &addFavSoundID);
+    }
+    // create sound when removing favorite
+    if (removeFavSoundID == 0) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"crunch"
+                                                         ofType:@"wav"];
+        NSURL *soundURL = [NSURL fileURLWithPath:path];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL,
+                                         &removeFavSoundID);
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,13 +97,34 @@
         
         //
         [self.delegate detailViewController:self didToggleFavorite:self.returnPathBack withState:@"ON"];
+        AudioServicesPlaySystemSound(addFavSoundID);
     } else {
+        // dialog
+        if (!sender.on) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Delete Favorite"
+                                  message:@"Are You Sure?"
+                                  delegate:self
+                                  cancelButtonTitle:@"CONFIRM"
+                                  otherButtonTitles:@"CANCEL", nil];
+            [alert show];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView
+clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        self.favoritesSwitch.on = YES;
+    } else {
+        BIDFavoritesList *favoritesList = [BIDFavoritesList sharedFavoritesList];
         //[favoritesList removeFavorite:self.trackLabel.text];
         //[favoritesList removeFavorite:self.favoriteTrack];
         [favoritesList removeFavorite:self.index];
         
-        //
+        // send back to table view
         [self.delegate detailViewController:self didToggleFavorite:self.returnPathBack withState:@"OFF"];
+        AudioServicesPlaySystemSound(removeFavSoundID);
     }
 }
 

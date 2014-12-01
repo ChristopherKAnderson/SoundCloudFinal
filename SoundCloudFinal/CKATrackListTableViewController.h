@@ -20,4 +20,6 @@
 
 @property IBOutlet UISearchBar *trackSearchBar;
 
+-(void) updateTracksAfterDelete;
+
 @end

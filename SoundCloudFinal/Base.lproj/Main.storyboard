@@ -98,7 +98,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1014" y="730"/>
+            <point key="canvasLocation" x="1014" y="686"/>
         </scene>
         <!--Track Info View Controller-->
         <scene sceneID="DMc-PU-m83">
@@ -145,7 +145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gBm-K7-fKw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1452" y="730"/>
+            <point key="canvasLocation" x="1508" y="686"/>
         </scene>
         <!--Navigation Controller - Get Tracks-->
         <scene sceneID="xhx-Hp-Y6G">
@@ -165,7 +165,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksC-g8-CrB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="521" y="730"/>
+            <point key="canvasLocation" x="521" y="686"/>
         </scene>
         <!--View Controller - SoundCloud Login-->
         <scene sceneID="0BX-4o-lLo">
@@ -190,14 +190,38 @@
                                     <action selector="login:" destination="eqM-C5-72O" eventType="touchUpInside" id="4TJ-01-Maf"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLM-Ex-ai8">
+                                <rect key="frame" x="20" y="120" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ljd-GQ-yhP">
+                                <rect key="frame" x="149" y="426" width="22" height="22"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="vzn-Mb-uqa" kind="modal" identifier="showAlternate" modalTransitionStyle="flipHorizontal" id="80z-E2-8up"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="SoundCloud Login" image="artmaster_login_mini_icon" id="dcF-iH-7ex"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="VLM-Ex-ai8" id="oRv-UY-a4u"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Nl-Li-yKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="521" y="77"/>
+            <point key="canvasLocation" x="521" y="-72"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Tq7-Zq-ihV">
@@ -334,7 +358,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uno-g6-ZTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="521" y="1391"/>
+            <point key="canvasLocation" x="521" y="1415"/>
+        </scene>
+        <!--Flipside View Controller-->
+        <scene sceneID="kTq-o5-Nd0">
+            <objects>
+                <viewController id="vzn-Mb-uqa" customClass="CKAFlipsideViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7cI-Lh-m3Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="HjP-0b-I5w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yem-Y2-BiG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="UmM-HA-wg7">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="SoundCloud Settings" id="337-3i-Kc0">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Auq-S4-DY1">
+                                            <connections>
+                                                <action selector="done:" destination="vzn-Mb-uqa" id="kux-nl-nkh"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTE-df-cpQ">
+                                <rect key="frame" x="20" y="125" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7E6-TQ-jbN">
+                                <rect key="frame" x="20" y="170" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UmM-HA-wg7" firstAttribute="leading" secondItem="Yem-Y2-BiG" secondAttribute="leading" id="YUz-4X-T6J"/>
+                            <constraint firstItem="UmM-HA-wg7" firstAttribute="top" secondItem="Yem-Y2-BiG" secondAttribute="top" id="acp-1F-u9h"/>
+                            <constraint firstItem="UmM-HA-wg7" firstAttribute="trailing" secondItem="Yem-Y2-BiG" secondAttribute="trailing" id="hMU-Dp-U2n"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="passwordLabel" destination="7E6-TQ-jbN" id="3aJ-D3-lgF"/>
+                        <outlet property="userLabel" destination="tTE-df-cpQ" id="dcQ-OL-eXg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A0L-4o-Nn0" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1014" y="-72"/>
         </scene>
     </scenes>
     <resources>
@@ -348,6 +425,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="d58-MK-y69"/>
+        <segue reference="tC1-OK-gHV"/>
     </inferredMetricsTieBreakers>
 </document>

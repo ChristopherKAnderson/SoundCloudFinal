@@ -7,6 +7,7 @@
 //
 
 #import "CKAAppDelegate.h"
+#import "CKAViewController.h"
 #import "SCUI.h"
 
 @implementation CKAAppDelegate
@@ -21,6 +22,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    NSDictionary *defaults = @{kUser : @"Default User",
+                               kPassword : @"Default Password",
+                               kTitle : @"Default Title"};
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     return YES;
 }
 							

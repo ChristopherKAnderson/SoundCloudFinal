@@ -9,6 +9,7 @@
 #import "BIDFavoritesList.h"
 #import "CKAViewController.h"
 #import "CKATrackListViewController.h"
+#import "CKAFlipsideViewController.h"
 #import "SCUI.h"
 #import <sqlite3.h>
 
@@ -20,11 +21,45 @@
     NSMutableArray *_objects;
 }
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @property (weak, nonatomic) IBOutlet UIPickerView *trackPicker;
 
 @end
 
 @implementation CKAViewController
+
+// Default User Settings - Setup
+- (void)refreshFields {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.titleLabel.text = [defaults objectForKey:kTitle];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshFields];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillEnterForeground:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:app];
+}
+
+- (void)applicationWillEnterForeground: (NSNotification *) notification {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize];
+    [self refreshFields];
+}
 
 // BID setup sqlite3 data file path
 - (NSString *)dataFilePath
@@ -38,6 +73,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    // Refresh User Default Settings
+    [self refreshFields];
     
     // BID setup sqlite3 - open database
     sqlite3 *database;
@@ -389,6 +427,21 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     return _objects[row];
+}
+
+#pragma mark - Flipside View
+
+- (void)flipsideViewControllerDidFinish:(CKAFlipsideViewController *)controller
+{
+    [self refreshFields];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showAlternate"]) {
+        [[segue destinationViewController] setDelegate:self];
+    }
 }
 
 

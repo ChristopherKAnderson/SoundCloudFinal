@@ -17,6 +17,9 @@
 - (void)detailViewController:(CKATrackInfoViewController *)detailViewController
            didToggleFavorite:(int)returnPathBack withState:(NSString *)state;
 
+- (void)alertView:(UIAlertView *)alertView
+clickedButtonAtIndex:(NSInteger)buttonIndex;
+
 @end
 
 @interface CKATrackInfoViewController : UIViewController

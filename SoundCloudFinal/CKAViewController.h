@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "CKAFlipsideViewController.h"
 
-@interface CKAViewController : UIViewController
-<AVAudioRecorderDelegate, AVAudioPlayerDelegate, AVAssetResourceLoaderDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UISearchDisplayDelegate>
+#define kTitle                        @"title"
+
+@interface CKAViewController : UIViewController 
+<AVAudioRecorderDelegate, AVAudioPlayerDelegate, AVAssetResourceLoaderDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UISearchDisplayDelegate, CKAFlipsideViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;

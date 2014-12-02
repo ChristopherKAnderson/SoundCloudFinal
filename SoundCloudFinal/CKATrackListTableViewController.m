@@ -13,8 +13,8 @@
 #import "CKATrackInfoViewController.h"
 #import "SCUI.H"
 #import <AVFoundation/AVFoundation.h>
-#import "CKATrack.h"
-#import "CKATrack1.h"
+//#import "CKATrack.h"
+//#import "CKATrack1.h"
 
 @interface CKATrackListTableViewController ()
 @property (strong, nonatomic) BIDFavoritesList *favoritesList;
@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSArray *favTracks;
 //@property (strong, nonatomic) CKATrack *searchTrack;
 @property int fav;
-@property BOOL onceToken;
+//@property BOOL onceToken;
 
 @end
 
@@ -100,9 +100,9 @@
         }
     };
     
-    //NSString *resourceURL = @"https://api.soundcloud.com/me/tracks.json";
+    NSString *resourceURL = @"https://api.soundcloud.com/me/tracks.json";
     //NSString * resourceURL = [NSString stringWithFormat:@"https://api.soundcloud.com/me/tracks?q=%@&format=json", self.playlist];
-    NSString *resourceURL = @"https://api.soundcloud.com/me/playlists.json";
+    //NSString *resourceURL = @"https://api.soundcloud.com/me/playlists.json";
     [SCRequest performMethod:SCRequestMethodGET
                   onResource:[NSURL URLWithString:resourceURL]
              usingParameters:nil
@@ -117,12 +117,14 @@
     //filteredTracks = tracks;
 }
 
+/*
 -(void) drillDownTracks {
     // display only playlist tracks
     NSDictionary *temp = [tracks objectAtIndex:self.index];
     NSArray *tempArr = [temp objectForKey:@"tracks"];
     tracks = tempArr;
 }
+*/
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
@@ -175,10 +177,12 @@
 {
 #warning Potentially incomplete method implementation.
     
+    /*
     // ONLY DO THIS ONCE!
     if (!self.onceToken) {
         [self drillDownTracks];
     }
+    */
     
     // Return the number of sections.
     if ([self.favoritesList.favorites count] > 0) {
@@ -536,7 +540,7 @@ titleForHeaderInSection:(NSInteger)section {
     */
     
     // return boolean
-    self.onceToken = YES;
+    //self.onceToken = YES;
     
     
     [self.tableView reloadData];

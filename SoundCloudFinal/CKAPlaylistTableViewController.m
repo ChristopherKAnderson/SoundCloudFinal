@@ -185,11 +185,13 @@ titleForHeaderInSection:(NSInteger)section {
     
     CKATrackListTableViewController *targetVC = (CKATrackListTableViewController*)segue.destinationViewController;
     
+    /*
     NSDictionary *playlist = [playlists objectAtIndex:indexPath.row];
     targetVC.playlist = [playlist objectForKey:@"id"];
     
     int index = indexPath.row;
     targetVC.index = index;
+    */
 }
 
 @end

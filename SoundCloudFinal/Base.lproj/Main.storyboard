@@ -160,7 +160,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="X2v-PO-jnv" kind="relationship" relationship="rootViewController" id="EA3-s9-vhG"/>
+                        <segue destination="UWa-kv-VcJ" kind="relationship" relationship="rootViewController" id="Ljd-7n-w5R"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksC-g8-CrB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -177,7 +177,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NormalCell" textLabel="jHj-fK-p15" detailTextLabel="oGX-GX-GQT" style="IBUITableViewCellStyleSubtitle" id="wQt-MF-WWa">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wQt-MF-WWa" id="nlF-tc-4Ta">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -199,9 +199,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="UWa-kv-VcJ" kind="push" id="KEm-g8-aaS"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -213,7 +210,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ET-ud-gj7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1088" y="686"/>
+            <point key="canvasLocation" x="1082" y="1415"/>
         </scene>
         <!--View Controller - SoundCloud Login-->
         <scene sceneID="0BX-4o-lLo">
@@ -459,7 +456,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A0L-4o-Nn0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1014" y="-72"/>
+            <point key="canvasLocation" x="1082" y="-72"/>
         </scene>
     </scenes>
     <resources>
@@ -473,6 +470,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="tC1-OK-gHV"/>
+        <segue reference="d58-MK-y69"/>
     </inferredMetricsTieBreakers>
 </document>

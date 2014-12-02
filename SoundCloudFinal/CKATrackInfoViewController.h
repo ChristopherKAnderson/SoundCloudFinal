@@ -9,16 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "CKATrackListTableViewController.h"
 
-// BID declare the detail view class to solve the forward reference
+// CKA declare the detail view class to solve the forward reference
 @class CKATrackInfoViewController;
 
-// BID define the protocol
+// CKA define the protocol
 @protocol DetailViewControllerDelegate <NSObject>
+
 - (void)detailViewController:(CKATrackInfoViewController *)detailViewController
            didToggleFavorite:(int)returnPathBack withState:(NSString *)state;
-
-- (void)alertView:(UIAlertView *)alertView
-clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end
 
@@ -26,7 +24,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @property (strong, nonatomic) id detailItem;
 
-// BID define the delegate reference
+// CKA define the delegate reference
 @property (nonatomic, weak) id <DetailViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) NSObject *favoriteTrack;
@@ -35,5 +33,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex;
 @property (assign, nonatomic) BOOL favorite;
 @property int returnPath;
 @property int returnPathBack;
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end

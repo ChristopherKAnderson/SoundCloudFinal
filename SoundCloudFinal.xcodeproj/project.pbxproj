@@ -9,10 +9,7 @@
 /* Begin PBXBuildFile section */
 		04070F041A2CD98600ED7860 /* CKAFlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04070F031A2CD98600ED7860 /* CKAFlipsideViewController.m */; };
 		04070F071A2D295900ED7860 /* CKAPlaylistTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04070F061A2D295900ED7860 /* CKAPlaylistTableViewController.m */; };
-		042E02CA1A0C726000B670DF /* CKATrackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042E02C81A0C726000B670DF /* CKATrackListViewController.m */; };
-		042E02CB1A0C726000B670DF /* CKATrackListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042E02C91A0C726000B670DF /* CKATrackListViewController.xib */; };
 		042E02CD1A0C753D00B670DF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042E02CC1A0C753D00B670DF /* AVFoundation.framework */; };
-		042E02CF1A0C7BA600B670DF /* example.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 042E02CE1A0C7BA600B670DF /* example.mp3 */; };
 		04AB8A7D1A0C5BB8004B1441 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AB8A7C1A0C5BB8004B1441 /* Foundation.framework */; };
 		04AB8A7F1A0C5BB8004B1441 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AB8A7E1A0C5BB8004B1441 /* CoreGraphics.framework */; };
 		04AB8A811A0C5BB8004B1441 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AB8A801A0C5BB8004B1441 /* UIKit.framework */; };
@@ -38,18 +35,14 @@
 		04AC523C1A204A6700802476 /* BIDFavoritesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC523B1A204A6700802476 /* BIDFavoritesList.m */; };
 		04AC523F1A2052BF00802476 /* CKATrackInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC523E1A2052BF00802476 /* CKATrackInfoViewController.m */; };
 		04D26BD01A293702000E5B4E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D26BCF1A293702000E5B4E /* libsqlite3.dylib */; };
-		04D26BD21A298AAA000E5B4E /* example.aac in Resources */ = {isa = PBXBuildFile; fileRef = 04D26BD11A298AAA000E5B4E /* example.aac */; };
 		04E7E80A1A2A9328003C0DCF /* libJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7E7F11A2A92E5003C0DCF /* libJSONKit.a */; };
 		04E7E80B1A2A9328003C0DCF /* libOAuth2Client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7E7FD1A2A92F6003C0DCF /* libOAuth2Client.a */; };
 		04E7E80C1A2A9328003C0DCF /* libOHAttributedLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7E7EA1A2A92D4003C0DCF /* libOHAttributedLabel.a */; };
 		04E7E80D1A2A9328003C0DCF /* libSoundCloudAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7E7DB1A2A92A2003C0DCF /* libSoundCloudAPI.a */; };
 		04E7E80E1A2A9328003C0DCF /* libSoundCloudUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7E7E21A2A92BF003C0DCF /* libSoundCloudUI.a */; };
-		04E7E8111A2AB3FA003C0DCF /* CKATrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E8101A2AB3FA003C0DCF /* CKATrack.m */; };
-		04E7E8171A2B01F8003C0DCF /* CKATrack1.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E8161A2B01F8003C0DCF /* CKATrack1.m */; };
 		04E7E8191A2BD6D8003C0DCF /* crunch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04E7E8181A2BD6D8003C0DCF /* crunch.wav */; };
 		04E7E81B1A2BD805003C0DCF /* bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04E7E81A1A2BD805003C0DCF /* bell.wav */; };
 		04E7E81D1A2BF0A1003C0DCF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04E7E81C1A2BF0A1003C0DCF /* Settings.bundle */; };
-		04E7E8221A2BFC16003C0DCF /* myScript.pl in Resources */ = {isa = PBXBuildFile; fileRef = 04E7E8211A2BFC16003C0DCF /* myScript.pl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,11 +165,7 @@
 		04070F031A2CD98600ED7860 /* CKAFlipsideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKAFlipsideViewController.m; sourceTree = "<group>"; };
 		04070F051A2D295900ED7860 /* CKAPlaylistTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAPlaylistTableViewController.h; sourceTree = "<group>"; };
 		04070F061A2D295900ED7860 /* CKAPlaylistTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKAPlaylistTableViewController.m; sourceTree = "<group>"; };
-		042E02C71A0C726000B670DF /* CKATrackListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKATrackListViewController.h; sourceTree = "<group>"; };
-		042E02C81A0C726000B670DF /* CKATrackListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKATrackListViewController.m; sourceTree = "<group>"; };
-		042E02C91A0C726000B670DF /* CKATrackListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CKATrackListViewController.xib; sourceTree = "<group>"; };
 		042E02CC1A0C753D00B670DF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		042E02CE1A0C7BA600B670DF /* example.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = example.mp3; sourceTree = "<group>"; };
 		04AB8A791A0C5BB8004B1441 /* SoundCloudFinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundCloudFinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AB8A7C1A0C5BB8004B1441 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		04AB8A7E1A0C5BB8004B1441 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -210,20 +199,14 @@
 		04AC523D1A2052BF00802476 /* CKATrackInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKATrackInfoViewController.h; sourceTree = "<group>"; };
 		04AC523E1A2052BF00802476 /* CKATrackInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKATrackInfoViewController.m; sourceTree = "<group>"; };
 		04D26BCF1A293702000E5B4E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		04D26BD11A298AAA000E5B4E /* example.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = example.aac; sourceTree = "<group>"; };
 		04E7E7D31A2A92A2003C0DCF /* SoundCloudAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SoundCloudAPI.xcodeproj; path = CocoaSoundCloudAPI/SoundCloudAPI.xcodeproj; sourceTree = "<group>"; };
 		04E7E7DC1A2A92BF003C0DCF /* SoundCloudUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SoundCloudUI.xcodeproj; path = CocoaSoundCloudUI/SoundCloudUI.xcodeproj; sourceTree = "<group>"; };
 		04E7E7E51A2A92D3003C0DCF /* OHAttributedLabel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHAttributedLabel.xcodeproj; path = OHAttributedLabel/OHAttributedLabel.xcodeproj; sourceTree = "<group>"; };
 		04E7E7EB1A2A92E5003C0DCF /* JSONKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JSONKit.xcodeproj; path = JSONKit/JSONKit.xcodeproj; sourceTree = "<group>"; };
 		04E7E7F41A2A92F5003C0DCF /* OAuth2Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuth2Client.xcodeproj; path = OAuth2Client/OAuth2Client.xcodeproj; sourceTree = "<group>"; };
-		04E7E80F1A2AB3FA003C0DCF /* CKATrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKATrack.h; sourceTree = "<group>"; };
-		04E7E8101A2AB3FA003C0DCF /* CKATrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKATrack.m; sourceTree = "<group>"; };
-		04E7E8151A2B01F8003C0DCF /* CKATrack1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKATrack1.h; sourceTree = "<group>"; };
-		04E7E8161A2B01F8003C0DCF /* CKATrack1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKATrack1.m; sourceTree = "<group>"; };
 		04E7E8181A2BD6D8003C0DCF /* crunch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = crunch.wav; sourceTree = "<group>"; };
 		04E7E81A1A2BD805003C0DCF /* bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bell.wav; sourceTree = "<group>"; };
 		04E7E81C1A2BF0A1003C0DCF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		04E7E8211A2BFC16003C0DCF /* myScript.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; name = myScript.pl; path = Licenses/myScript.pl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,37 +292,27 @@
 		04AB8A821A0C5BB8004B1441 /* SoundCloudFinal */ = {
 			isa = PBXGroup;
 			children = (
-				04E7E8211A2BFC16003C0DCF /* myScript.pl */,
-				04E7E81A1A2BD805003C0DCF /* bell.wav */,
-				04E7E8181A2BD6D8003C0DCF /* crunch.wav */,
-				04D26BD11A298AAA000E5B4E /* example.aac */,
-				042E02CE1A0C7BA600B670DF /* example.mp3 */,
 				04AC523A1A204A6700802476 /* BIDFavoritesList.h */,
 				04AC523B1A204A6700802476 /* BIDFavoritesList.m */,
 				04AB8A8B1A0C5BB8004B1441 /* CKAAppDelegate.h */,
 				04AB8A8C1A0C5BB8004B1441 /* CKAAppDelegate.m */,
-				04AB8A8E1A0C5BB8004B1441 /* Main.storyboard */,
 				04AB8A911A0C5BB8004B1441 /* CKAViewController.h */,
 				04AB8A921A0C5BB8004B1441 /* CKAViewController.m */,
-				04AB8A941A0C5BB8004B1441 /* Images.xcassets */,
-				04AB8AF91A0C5E26004B1441 /* SoundCloud.bundle */,
-				04AB8A831A0C5BB8004B1441 /* Supporting Files */,
-				042E02C71A0C726000B670DF /* CKATrackListViewController.h */,
-				042E02C81A0C726000B670DF /* CKATrackListViewController.m */,
-				042E02C91A0C726000B670DF /* CKATrackListViewController.xib */,
 				04AC52371A201ACA00802476 /* CKATrackListTableViewController.h */,
 				04AC52381A201ACA00802476 /* CKATrackListTableViewController.m */,
 				04AC523D1A2052BF00802476 /* CKATrackInfoViewController.h */,
 				04AC523E1A2052BF00802476 /* CKATrackInfoViewController.m */,
-				04E7E80F1A2AB3FA003C0DCF /* CKATrack.h */,
-				04E7E8101A2AB3FA003C0DCF /* CKATrack.m */,
-				04E7E8151A2B01F8003C0DCF /* CKATrack1.h */,
-				04E7E8161A2B01F8003C0DCF /* CKATrack1.m */,
-				04E7E81C1A2BF0A1003C0DCF /* Settings.bundle */,
 				04070F021A2CD98600ED7860 /* CKAFlipsideViewController.h */,
 				04070F031A2CD98600ED7860 /* CKAFlipsideViewController.m */,
 				04070F051A2D295900ED7860 /* CKAPlaylistTableViewController.h */,
 				04070F061A2D295900ED7860 /* CKAPlaylistTableViewController.m */,
+				04AB8A8E1A0C5BB8004B1441 /* Main.storyboard */,
+				04AB8A831A0C5BB8004B1441 /* Supporting Files */,
+				04AB8AF91A0C5E26004B1441 /* SoundCloud.bundle */,
+				04E7E81C1A2BF0A1003C0DCF /* Settings.bundle */,
+				04AB8A941A0C5BB8004B1441 /* Images.xcassets */,
+				04E7E81A1A2BD805003C0DCF /* bell.wav */,
+				04E7E8181A2BD6D8003C0DCF /* crunch.wav */,
 			);
 			path = SoundCloudFinal;
 			sourceTree = "<group>";
@@ -597,15 +570,11 @@
 			files = (
 				04AB8A951A0C5BB8004B1441 /* Images.xcassets in Resources */,
 				04E7E8191A2BD6D8003C0DCF /* crunch.wav in Resources */,
-				04E7E8221A2BFC16003C0DCF /* myScript.pl in Resources */,
 				04E7E81D1A2BF0A1003C0DCF /* Settings.bundle in Resources */,
 				04AB8AFA1A0C5E26004B1441 /* SoundCloud.bundle in Resources */,
 				04AB8A871A0C5BB8004B1441 /* InfoPlist.strings in Resources */,
-				042E02CF1A0C7BA600B670DF /* example.mp3 in Resources */,
-				042E02CB1A0C726000B670DF /* CKATrackListViewController.xib in Resources */,
 				04E7E81B1A2BD805003C0DCF /* bell.wav in Resources */,
 				04AB8A901A0C5BB8004B1441 /* Main.storyboard in Resources */,
-				04D26BD21A298AAA000E5B4E /* example.aac in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,15 +594,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				04AB8A931A0C5BB8004B1441 /* CKAViewController.m in Sources */,
-				04E7E8111A2AB3FA003C0DCF /* CKATrack.m in Sources */,
 				04AC523C1A204A6700802476 /* BIDFavoritesList.m in Sources */,
 				04AB8A8D1A0C5BB8004B1441 /* CKAAppDelegate.m in Sources */,
 				04070F071A2D295900ED7860 /* CKAPlaylistTableViewController.m in Sources */,
 				04070F041A2CD98600ED7860 /* CKAFlipsideViewController.m in Sources */,
 				04AC523F1A2052BF00802476 /* CKATrackInfoViewController.m in Sources */,
 				04AC52391A201ACA00802476 /* CKATrackListTableViewController.m in Sources */,
-				04E7E8171A2B01F8003C0DCF /* CKATrack1.m in Sources */,
-				042E02CA1A0C726000B670DF /* CKATrackListViewController.m in Sources */,
 				04AB8A891A0C5BB8004B1441 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

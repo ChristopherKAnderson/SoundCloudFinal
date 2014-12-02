@@ -15,7 +15,9 @@
 @class CKAFlipsideViewController;
 
 @protocol CKAFlipsideViewControllerDelegate
+
 - (void)flipsideViewControllerDidFinish:(CKAFlipsideViewController *)controller;
+
 @end
 
 @interface CKAFlipsideViewController : UIViewController 

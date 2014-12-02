@@ -10,10 +10,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CKAFlipsideViewController.h"
 
-#define kTitle                        @"title"
+#define kTitle      @"title"
 
 @interface CKAViewController : UIViewController 
 <AVAudioRecorderDelegate, AVAudioPlayerDelegate, AVAssetResourceLoaderDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UISearchDisplayDelegate, CKAFlipsideViewControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
@@ -28,7 +29,5 @@
 - (IBAction)playTapped:(id)sender;
 - (IBAction)recordPauseTapped:(id)sender;
 - (IBAction)stopTapped:(id)sender;
-
-
 
 @end

@@ -8,7 +8,6 @@
 
 #import "BIDFavoritesList.h"
 #import "CKAViewController.h"
-#import "CKATrackListViewController.h"
 #import "CKAFlipsideViewController.h"
 #import "SCUI.h"
 #import <sqlite3.h>
@@ -17,12 +16,11 @@
     AVAudioRecorder *recorder;
     AVAudioPlayer *player;
     
-    // to store audio in db
+    // to store audio file titles in db
     NSMutableArray *_objects;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-
 @property (weak, nonatomic) IBOutlet UIPickerView *trackPicker;
 
 @end
@@ -61,7 +59,7 @@
     [self refreshFields];
 }
 
-// BID setup sqlite3 data file path
+// CKA setup sqlite3 data file path
 - (NSString *)dataFilePath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -77,14 +75,16 @@
     // Refresh User Default Settings
     [self refreshFields];
     
-    // BID setup sqlite3 - open database
+    /////////////////////////////////////////////////////////////////////////////////////////
+    
+    // CKA setup sqlite3 - open database
     sqlite3 *database;
     if (sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
         sqlite3_close(database);
         NSAssert(0, @"Failed to open database");
     }
     
-    // BID setup sqlite3 - create table
+    // CKA setup sqlite3 - create table
     NSString *createSQL = @"CREATE TABLE IF NOT EXISTS NAMES "
     "(ROW INTEGER PRIMARY KEY, NAME_DATA TEXT);";
     char *errorMsg;
@@ -96,7 +96,6 @@
     sqlite3_stmt *statement;
     if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            //int row = sqlite3_column_int(statement, 0);
             char *rowData = (char *)sqlite3_column_text(statement, 1);
             NSString *fieldValue = [[NSString alloc] initWithUTF8String:rowData];
             if (!_objects) {
@@ -108,18 +107,14 @@
     }
     sqlite3_close(database);
     
-    // BID setup app to resign active state when exiting app
+    // CKA setup app to resign active state when exiting app
     UIApplication *app = [UIApplication sharedApplication];
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(applicationWillResignActive:)
      name:UIApplicationWillResignActiveNotification object:app];
     
-    /*
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    */
-    
     /////////////////////////////////////////////////////////////////////////////////////////////
+    
     [self.stopButton setEnabled:NO];
     [self.playButton setEnabled:NO];
     
@@ -129,7 +124,7 @@
                                                             userInfo:NULL repeats:YES];
 }
 
-// BID build resign active method
+// CKA build resign active method
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
     // open database
@@ -142,7 +137,7 @@
     // preparet statement to get row count from database
     sqlite3_stmt *stmt;
     int rowsDB = 0;
-    int rowsObjects = [_objects count];
+    long rowsObjects = [_objects count];
     NSString *countRows = @"SELECT COUNT (*) FROM NAMES;";
     if (sqlite3_prepare_v2(database, [countRows UTF8String], -1, &stmt, nil) == SQLITE_OK) {
         if (sqlite3_step(stmt) != SQLITE_ERROR) {
@@ -244,16 +239,13 @@
         loginViewController = [SCLoginViewController
                                loginViewControllerWithPreparedURL:preparedURL
                                completionHandler:handler];
-        [self presentModalViewController:loginViewController animated:YES];
+        //[self presentModalViewController:loginViewController animated:YES];
+        [self presentViewController:loginViewController animated:YES completion:nil];
     }];
 }
 
 - (IBAction)upload:(id)sender
 {
-    //NSURL *trackURL = [NSURL
-    //                   fileURLWithPath:[
-    //                                    [NSBundle mainBundle]pathForResource:@"example" ofType:@"aac"]];
-    
     // sandbox document directory
     NSURL *trackURL = self.outputFileURL;
     
@@ -269,13 +261,16 @@
             NSLog(@"Uploaded track: %@", trackInfo);
         }
     };
+    
     shareViewController = [SCShareViewController
                            shareViewControllerWithFileURL:trackURL
                            completionHandler:handler];
     [shareViewController setTitle:@"Example Sound"];
     [shareViewController setPrivate:YES];
-    [self presentModalViewController:shareViewController animated:YES];
+    //[self presentModalViewController:shareViewController animated:YES];
+    [self presentViewController:shareViewController animated:YES completion:nil];
 }
+
 - (IBAction)selectTrack:(id)sender {
     
     NSInteger row = [self.trackPicker selectedRowInComponent:0];
@@ -299,7 +294,6 @@
 
 - (IBAction)playTapped:(id)sender {
     if (!recorder.recording){
-        //player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
         player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.outputFileURL error:nil];
         [player setDelegate:self];
         [player play];
@@ -307,6 +301,9 @@
 }
 
 - (IBAction)recordPauseTapped:(id)sender {
+    // resign to first responder
+    [self.name resignFirstResponder];
+    
     // check if user entered track name in text field
     if ([self.name.text  isEqual: @""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Warning"
@@ -363,10 +360,6 @@
         _objects = [[NSMutableArray alloc] init];
     }
     [_objects addObject:self.name.text];
-    //NSString *string = self.name.text;
-    //NSString *newItem = [NSString stringWithFormat:@"%@.aac", string];
-    //[_objects addObject:newItem];
-    //[_objects addObject:self.outputFileURL];
     
     [self.trackPicker reloadAllComponents];
 }
@@ -381,16 +374,11 @@
 }
 
 - (void) updateMeter {
-    /*
-    float level = 0;
-    while (recorder.recording) {
-        [recorder updateMeters];
-        level = [recorder peakPowerForChannel:1];
-        self.meter.text = [NSString stringWithFormat:@"%f", level];
-    }
-    */
+    
+    // setup meters for recording
     float level = 0;
     double currentTime = recorder.currentTime;
+    
     if (recorder == nil) {
         self.meter.text = @"";
     } else if (!recorder.isRecording) {

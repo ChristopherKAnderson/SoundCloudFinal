@@ -15,6 +15,9 @@
 
 @property (strong,nonatomic) NSArray *filteredPlaylists;
 
-//-(void) updateTracksAfterDelete;
+/*
+// For playlist navigation
+-(void) updateTracksAfterDelete;
+*/
 
 @end

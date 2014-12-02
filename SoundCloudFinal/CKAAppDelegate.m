@@ -23,9 +23,9 @@
 {
     // Override point for customization after application launch.
     
-    NSDictionary *defaults = @{kUser : @"Default User",
+    NSDictionary *defaults = @{kUser :     @"Default User",
                                kPassword : @"Default Password",
-                               kTitle : @"Default Title"};
+                               kTitle :    @"Default Title"};
     
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     return YES;

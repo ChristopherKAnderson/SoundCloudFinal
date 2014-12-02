@@ -25,6 +25,7 @@
 
 // Default User Settings - Setup
 - (void)refreshFields {
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.userLabel.text = [defaults objectForKey:kUser];
     self.passwordLabel.text = [defaults objectForKey:kPassword];
@@ -60,6 +61,7 @@
 }
 
 - (void)applicationWillEnterForeground: (NSNotification *) notification {
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
     [self refreshFields];

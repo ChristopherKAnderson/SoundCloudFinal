@@ -8,35 +8,37 @@
 
 #import "BIDFavoritesList.h"
 #import "CKAViewController.h"
-//#import "CKATrackListViewController.h"
 #import "CKATrackListTableViewController.h"
 #import "CKATrackInfoViewController.h"
 #import "SCUI.H"
 #import <AVFoundation/AVFoundation.h>
-//#import "CKATrack.h"
-//#import "CKATrack1.h"
 
 @interface CKATrackListTableViewController ()
+
 @property (strong, nonatomic) BIDFavoritesList *favoritesList;
 @property (strong, nonatomic) NSString *trackDesc;
 @property (strong, nonatomic) NSArray *favTracks;
-//@property (strong, nonatomic) CKATrack *searchTrack;
 @property int fav;
-//@property BOOL onceToken;
+
+/*
+// for playlist update
+@property BOOL onceToken;
+*/
 
 @end
 
 @implementation CKATrackListTableViewController
-@synthesize tracks;
-@synthesize player;
 
+@synthesize tracks;
 @synthesize filteredTracks;
+@synthesize player;
 @synthesize trackSearchBar;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
+        
         // Custom initialization
     }
     return self;
@@ -45,8 +47,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -58,6 +58,7 @@
     
     SCAccount *account = [SCSoundCloud account];
     if (account == nil) {
+        
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Not Logged In"
                               message:@"You must login first"
@@ -70,54 +71,41 @@
     
     SCRequestResponseHandler handler;
     handler = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        
         NSError *jsonError = nil;
         NSJSONSerialization *jsonResponse = [NSJSONSerialization
                                              JSONObjectWithData:data
                                              options:0
                                              error:&jsonError];
         if (!jsonError && [jsonResponse isKindOfClass:[NSArray class]]) {
-            //CKATrackListViewController *trackListVC;
-            //trackListVC = [[CKATrackListViewController alloc]
-            //               initWithNibName:@"CKATrackListViewController"
-            //               bundle:nil];
             
-            
-            // default
             tracks = (NSArray *)jsonResponse;
-            
-            
-            /*
-            // experimental
-            //tracks = [NSArray arrayWithArray:(NSArray *)jsonResponse];
-            tracks = [NSArray arrayWithObjects:
-                       [CKATrack1 name: [tracks objectAtIndex:0]],
-                       [CKATrack1 name: [tracks objectAtIndex:1]], nil];
-            */
-            
-            //[self presentViewController:trackListVC
-            //                  animated:YES completion:nil];
             [self.tableView reloadData];
         }
     };
     
+    // Link to sound cloud assets / could use playlists instead but trickier
     NSString *resourceURL = @"https://api.soundcloud.com/me/tracks.json";
+    
+    /*
+    // These might be used later when I can get the playlist navigation working correctly
     //NSString * resourceURL = [NSString stringWithFormat:@"https://api.soundcloud.com/me/tracks?q=%@&format=json", self.playlist];
     //NSString *resourceURL = @"https://api.soundcloud.com/me/playlists.json";
-    [SCRequest performMethod:SCRequestMethodGET
+    */
+    
+     [SCRequest performMethod:SCRequestMethodGET
                   onResource:[NSURL URLWithString:resourceURL]
              usingParameters:nil
                  withAccount:account
       sendingProgressHandler:nil
              responseHandler:handler];
     
+    // initialize favorite tracks array
     self.favTracks = [BIDFavoritesList sharedFavoritesList].favorites;
-    
-    // Initialize the filteredCandyArray with a capacity equal to the candyArray's capacity
-    //filteredTracks = [NSMutableArray arrayWithCapacity:[tracks count]];
-    //filteredTracks = tracks;
 }
 
 /*
+// Will be used later to implement the playlist navigation
 -(void) drillDownTracks {
     // display only playlist tracks
     NSDictionary *temp = [tracks objectAtIndex:self.index];
@@ -127,6 +115,7 @@
 */
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     [self.tableView reloadData];
 }
 
@@ -137,8 +126,10 @@
 }
 
 -(void) updateTracksAfterDelete {
+    
     SCAccount *account = [SCSoundCloud account];
     if (account == nil) {
+        
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Not Logged In"
                               message:@"You must login first"
@@ -157,6 +148,7 @@
                                              options:0
                                              error:&jsonError];
         if (!jsonError && [jsonResponse isKindOfClass:[NSArray class]]) {
+            
             tracks = (NSArray *)jsonResponse;
             [self.tableView reloadData];
         }
@@ -175,9 +167,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    
-    /*
+    /* 
+    // This is for playlist nav
     // ONLY DO THIS ONCE!
     if (!self.onceToken) {
         [self drillDownTracks];
@@ -186,34 +177,42 @@
     
     // Return the number of sections.
     if ([self.favoritesList.favorites count] > 0) {
+        
         return 2;
+        
     } else {
+        
         return 1;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
     // Return the number of rows in the section.
     if (section == 0) {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
+            
             return [filteredTracks count];
+            
         } else {
+            
             return [tracks count];
         }
+        
     } else {
+        
         return [self.favTracks count];
     }
-    //return [self.tracks count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
+        
         return @"All Tracks";
+        
     } else {
+        
         return @"My Favorite Tracks";
     }
 }
@@ -225,6 +224,7 @@ titleForHeaderInSection:(NSInteger)section {
     UITableViewCell *cell = nil;
     
     if (indexPath.section == 0) {
+        
         cell = [tableView dequeueReusableCellWithIdentifier:NormalCell];
     
         if (cell == nil) {
@@ -232,50 +232,30 @@ titleForHeaderInSection:(NSInteger)section {
                     initWithStyle:UITableViewCellStyleDefault
                     reuseIdentifier:NormalCell];
         }
-    
-        int row = indexPath.row;
+        
+        // To help keep track of indexes
+        int row = [[NSNumber numberWithLong:indexPath.row] intValue];
         NSString *subtitle = [NSString stringWithFormat:@"%d", row];
         NSLog(@"row = %d", row);
         
-        //Track for search
-        // Create a new Track Object
-        //CKATrack *searchTrack = nil;
-        
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            /*
-            NSDictionary *track = [self.filteredTracks objectAtIndex:indexPath.row];
-            cell.textLabel.text = [track objectForKey:@"title"];
-            cell.detailTextLabel.text = subtitle;
-            */
             
             NSDictionary *track = [filteredTracks objectAtIndex:indexPath.row];
             cell.textLabel.text = [track objectForKey:@"title"];
             cell.detailTextLabel.text = subtitle;
             
-            // I'm losing my detail button when search is used
-            //cell.accessoryType = UITableViewCellAccessoryDetailButton;
-            
         }
+        
         else {
-            /*
-            NSDictionary *track = [self.tracks objectAtIndex:indexPath.row];
-            cell.textLabel.text = [track objectForKey:@"title"];
-            cell.detailTextLabel.text = subtitle;
-            */
-            
-            //self.searchTrack = nil;
-            //searchTrack = [tracks objectAtIndex:indexPath.row];
-            //NSDictionary *track = [self.filteredTracks objectAtIndex:indexPath.row];
-            //cell.textLabel.text = [searchTrack.name objectForKey:@"title"];
-            //cell.detailTextLabel.text = subtitle;
-            //[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
             
             NSDictionary *track = [tracks objectAtIndex:indexPath.row];
             cell.textLabel.text = [track objectForKey:@"title"];
             cell.detailTextLabel.text = subtitle;
             
         }
+        
     } else {
+        
         cell = [tableView dequeueReusableCellWithIdentifier:FavoritesCell];
                                                //forIndexPath:indexPath];
         
@@ -285,20 +265,14 @@ titleForHeaderInSection:(NSInteger)section {
                     reuseIdentifier:FavoritesCell];
         }
         
-        //NSDictionary *track = [self.tracks objectAtIndex:indexPath.row];
-        //NSDictionary *track = [self.favTracks objectAtIndex:indexPath.row];
-        //cell.textLabel.text = [track objectForKey:@"title"];
-        
-        //cell.textLabel.text = [self.favTracks objectAtIndex:indexPath.row];
-        
-        self.fav = [[self.favTracks objectAtIndex:indexPath.row] integerValue];
+        self.fav = [[self.favTracks objectAtIndex:indexPath.row] intValue];
         NSDictionary *track = [self.tracks objectAtIndex:self.fav];
         cell.textLabel.text = [track objectForKey:@"title"];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", self.fav];
     }
+    
     return cell;
 }
-
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -317,6 +291,7 @@ titleForHeaderInSection:(NSInteger)section {
         if (indexPath.section == 0) {
             
             if (tableView == self.searchDisplayController.searchResultsTableView) {
+                
                 NSDictionary *track = [filteredTracks objectAtIndex:indexPath.row];
                 NSString *trackID = [track objectForKey:@"id"];
                 
@@ -328,14 +303,19 @@ titleForHeaderInSection:(NSInteger)section {
                              withAccount:account
                   sendingProgressHandler:nil
                          responseHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                             
                              // Handle the response
                              if (error) {
                                  NSLog(@"Ooops, something went wrong: %@", [error localizedDescription]);
+                                 
                              } else {
+                                 
                                  // Check the statuscode and parse the data
                              }
                          }];
+                
             } else {
+                
                 NSDictionary *track = [tracks objectAtIndex:indexPath.row];
                 NSString *trackID = [track objectForKey:@"id"];
                 
@@ -347,17 +327,21 @@ titleForHeaderInSection:(NSInteger)section {
                              withAccount:account
                   sendingProgressHandler:nil
                          responseHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                             
                              // Handle the response
                              if (error) {
                                  NSLog(@"Ooops, something went wrong: %@", [error localizedDescription]);
+                                 
                              } else {
+                                 
                                  // Check the statuscode and parse the data
                              }
                          }];
             }
             
         } else {
-            int fav = [[self.favTracks objectAtIndex:indexPath.row] integerValue];
+            
+            int fav = [[self.favTracks objectAtIndex:indexPath.row] intValue];
             NSDictionary *track = [self.tracks objectAtIndex:fav];
             NSString *trackID = [track objectForKey:@"id"];
             
@@ -369,47 +353,35 @@ titleForHeaderInSection:(NSInteger)section {
                          withAccount:account
               sendingProgressHandler:nil
                      responseHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                         
                          // Handle the response
                          if (error) {
+                             
                              NSLog(@"Ooops, something went wrong: %@", [error localizedDescription]);
+                             
                          } else {
+                             
                              // Check the statuscode and parse the data
                          }
                      }];
         }
         
-        // Delete the row from the data source
-        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        // Update table view to reflect deleted track
         [self updateTracksAfterDelete];
         
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Navigation
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         
         if (tableView == self.searchDisplayController.searchResultsTableView) {
+            
             NSDictionary *track = [filteredTracks objectAtIndex:indexPath.row];
             NSString *streamURL = [track objectForKey:@"stream_url"];
     
@@ -426,7 +398,9 @@ titleForHeaderInSection:(NSInteger)section {
                          [player prepareToPlay];
                          [player play];
                      }];
+            
         } else {
+            
             NSDictionary *track = [tracks objectAtIndex:indexPath.row];
             NSString *streamURL = [track objectForKey:@"stream_url"];
             
@@ -444,8 +418,10 @@ titleForHeaderInSection:(NSInteger)section {
                          [player play];
                      }];
         }
+        
     } else {
-        int fav = [[self.favTracks objectAtIndex:indexPath.row] integerValue];
+        
+        int fav = [[self.favTracks objectAtIndex:indexPath.row] intValue];
         NSDictionary *track = [self.tracks objectAtIndex:fav];
         NSString *streamURL = [track objectForKey:@"stream_url"];
         
@@ -465,7 +441,6 @@ titleForHeaderInSection:(NSInteger)section {
     }
 }
 
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -475,23 +450,22 @@ titleForHeaderInSection:(NSInteger)section {
     infoVC.navigationItem.title = @"Track Info";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     
-    int row = indexPath.row;
-    //NSString *subtitle = [NSString stringWithFormat:@"%d", row];
+    int row = [[NSNumber numberWithLong:indexPath.row] intValue];
     NSLog(@"row = %d", row);
     
     NSDictionary *track;
     NSString *titleLabel;
+    
     if (self.tableView == self.searchDisplayController.searchResultsTableView) {
+        
         track = [filteredTracks objectAtIndex:indexPath.row];
         titleLabel = [track objectForKey:@"title"];
+        
     } else {
+        
         track = [tracks objectAtIndex:indexPath.row];
         titleLabel = [track objectForKey:@"title"];
     }
-    
-    //infoVC.titleLabel = titleLabel;
-    //infoVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
-    //                       containsObject:font.fontName];
     
     self.trackDesc = titleLabel;
     
@@ -500,18 +474,29 @@ titleForHeaderInSection:(NSInteger)section {
     targetVC.favoriteTrack = track;
     
     if (indexPath.section == 0) {
-        id checkFav = [NSString stringWithFormat:@"%d", indexPath.row];
+        
+        id checkFav = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
         targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
                              containsObject:checkFav];
+        /*
+        // For testing
         BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
                       containsObject:checkFav];
-        targetVC.returnPath = indexPath.row;
+        */
+        
+        targetVC.returnPath = [[NSNumber numberWithLong:indexPath.row] intValue];
+        
     } else {
+        
         id checkFav = [NSString stringWithFormat:@"%d", self.fav];
         targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
                              containsObject:checkFav];
+        
+        /*
         BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
                       containsObject:checkFav];
+        */
+        
         targetVC.returnPath = self.fav;
     }
     
@@ -527,34 +512,19 @@ titleForHeaderInSection:(NSInteger)section {
 // BID define the delegated method that adds the returned string to the table and master view
 - (void)detailViewController:(CKATrackInfoViewController *)detailViewController
            didToggleFavorite:(int)returnPathBack withState:(NSString *)state {
+    
     NSLog(@"didToggleFavorite: %d - %@", returnPathBack, state);       // turn this off eventually
     
     /*
-    if (returnPathBack) {
-        [_objects addObject:returnPathBack];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_objects.count-1 inSection:0];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        UITableView *tableView = [self tableView];
-        [tableView reloadData];
-    }
+    // Return boolean for playlist nav
+    self.onceToken = YES;
     */
-    
-    // return boolean
-    //self.onceToken = YES;
-    
     
     [self.tableView reloadData];
 }
 
 #pragma mark Content Filtering
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
-    // Update the filtered array based on the search text and scope.
-    // Remove all objects from the filtered search array
-    //[self.filteredTracks removeAllObjects];
-    // Filter the array using NSPredicate
-    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchText];
-    //filteredTracks = [NSMutableArray arrayWithArray:[tracks filteredArrayUsingPredicate:predicate]];
-    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@",searchText];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF ['title'] contains[cd] %@",searchText];
     filteredTracks = [tracks filteredArrayUsingPredicate:predicate];
@@ -562,25 +532,12 @@ titleForHeaderInSection:(NSInteger)section {
 
 #pragma mark - UISearchDisplayController Delegate Methods
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    // Tells the table data source to reload when text changes
-    /*
+    
     [self filterContentForSearchText:searchString scope:
      [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-    */
-    [self filterContentForSearchText:searchString scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-     // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
-/*
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
-    // Tells the table data source to reload when scope bar selection changes
-    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    
     // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
-*/
  
 @end

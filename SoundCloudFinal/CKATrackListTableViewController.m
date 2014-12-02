@@ -203,7 +203,6 @@
         return [self.favTracks count];
     }
     //return [self.tracks count];
-    self.onceToken = YES;
 }
 
 - (NSString *)tableView:(UITableView *)tableView
@@ -535,6 +534,11 @@ titleForHeaderInSection:(NSInteger)section {
         [tableView reloadData];
     }
     */
+    
+    // return boolean
+    self.onceToken = YES;
+    
+    
     [self.tableView reloadData];
 }
 

@@ -25,6 +25,7 @@
 @property int index;
 
 -(void) updateTracksAfterDelete;
+
 -(void) drillDownTracks;
 
 @end

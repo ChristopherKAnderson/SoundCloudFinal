@@ -425,7 +425,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04AB8AAB1A0C5BB8004B1441 /* Build configuration list for PBXNativeTarget "SoundCloudFinal" */;
 			buildPhases = (
-				04E7E81E1A2BF94C003C0DCF /* ShellScript */,
 				04AB8A751A0C5BB8004B1441 /* Sources */,
 				04AB8A761A0C5BB8004B1441 /* Frameworks */,
 				04AB8A771A0C5BB8004B1441 /* Resources */,
@@ -619,22 +618,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		04E7E81E1A2BF94C003C0DCF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd /Users/mac/documents/xcode_workspace/SoundCloudFinal/SoundCloudFinal/Licenses\n./myScript.pl";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		04AB8A751A0C5BB8004B1441 /* Sources */ = {

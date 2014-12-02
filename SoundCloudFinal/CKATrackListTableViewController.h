@@ -20,6 +20,11 @@
 
 @property IBOutlet UISearchBar *trackSearchBar;
 
+// For segue to track list
+@property (strong, nonatomic) NSString *playlist;
+@property int index;
+
 -(void) updateTracksAfterDelete;
+-(void) drillDownTracks;
 
 @end

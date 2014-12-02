@@ -98,7 +98,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1014" y="686"/>
+            <point key="canvasLocation" x="1630" y="686"/>
         </scene>
         <!--Track Info View Controller-->
         <scene sceneID="DMc-PU-m83">
@@ -145,7 +145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gBm-K7-fKw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1508" y="686"/>
+            <point key="canvasLocation" x="2124" y="686"/>
         </scene>
         <!--Navigation Controller - Get Tracks-->
         <scene sceneID="xhx-Hp-Y6G">
@@ -160,12 +160,60 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="UWa-kv-VcJ" kind="relationship" relationship="rootViewController" id="IPw-G3-fEW"/>
+                        <segue destination="X2v-PO-jnv" kind="relationship" relationship="rootViewController" id="EA3-s9-vhG"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksC-g8-CrB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="521" y="686"/>
+        </scene>
+        <!--Playlist Table View Controller - My SoundCloud Playlists-->
+        <scene sceneID="IXb-9B-BcM">
+            <objects>
+                <tableViewController id="X2v-PO-jnv" customClass="CKAPlaylistTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="6k6-DY-ppi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NormalCell" textLabel="jHj-fK-p15" detailTextLabel="oGX-GX-GQT" style="IBUITableViewCellStyleSubtitle" id="wQt-MF-WWa">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wQt-MF-WWa" id="nlF-tc-4Ta">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jHj-fK-p15">
+                                            <rect key="frame" x="15" y="3" width="34" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oGX-GX-GQT">
+                                            <rect key="frame" x="15" y="25" width="43" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="UWa-kv-VcJ" kind="push" id="KEm-g8-aaS"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="X2v-PO-jnv" id="NfE-KY-oNO"/>
+                            <outlet property="delegate" destination="X2v-PO-jnv" id="sPY-Pm-u7X"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="My SoundCloud Playlists" id="mq6-HQ-OaV"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0ET-ud-gj7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1088" y="686"/>
         </scene>
         <!--View Controller - SoundCloud Login-->
         <scene sceneID="0BX-4o-lLo">

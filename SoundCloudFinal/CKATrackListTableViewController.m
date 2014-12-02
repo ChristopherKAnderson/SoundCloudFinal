@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSArray *favTracks;
 //@property (strong, nonatomic) CKATrack *searchTrack;
 @property int fav;
+@property BOOL onceToken;
 
 @end
 
@@ -99,7 +100,9 @@
         }
     };
     
-    NSString *resourceURL = @"https://api.soundcloud.com/me/tracks.json";
+    //NSString *resourceURL = @"https://api.soundcloud.com/me/tracks.json";
+    //NSString * resourceURL = [NSString stringWithFormat:@"https://api.soundcloud.com/me/tracks?q=%@&format=json", self.playlist];
+    NSString *resourceURL = @"https://api.soundcloud.com/me/playlists.json";
     [SCRequest performMethod:SCRequestMethodGET
                   onResource:[NSURL URLWithString:resourceURL]
              usingParameters:nil
@@ -112,6 +115,13 @@
     // Initialize the filteredCandyArray with a capacity equal to the candyArray's capacity
     //filteredTracks = [NSMutableArray arrayWithCapacity:[tracks count]];
     //filteredTracks = tracks;
+}
+
+-(void) drillDownTracks {
+    // display only playlist tracks
+    NSDictionary *temp = [tracks objectAtIndex:self.index];
+    NSArray *tempArr = [temp objectForKey:@"tracks"];
+    tracks = tempArr;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -164,6 +174,12 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 #warning Potentially incomplete method implementation.
+    
+    // ONLY DO THIS ONCE!
+    if (!self.onceToken) {
+        [self drillDownTracks];
+    }
+    
     // Return the number of sections.
     if ([self.favoritesList.favorites count] > 0) {
         return 2;
@@ -187,6 +203,7 @@
         return [self.favTracks count];
     }
     //return [self.tracks count];
+    self.onceToken = YES;
 }
 
 - (NSString *)tableView:(UITableView *)tableView

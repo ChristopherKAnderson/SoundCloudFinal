@@ -14,6 +14,9 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface CKATrackListTableViewController ()
+<DetailViewControllerDelegate> {
+    //
+}
 
 @property (strong, nonatomic) BIDFavoritesList *favoritesList;
 @property (strong, nonatomic) NSString *trackDesc;

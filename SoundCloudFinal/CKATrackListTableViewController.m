@@ -534,7 +534,7 @@ titleForHeaderInSection:(NSInteger)section {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     CKATrackListTableViewController *infoVC = segue.destinationViewController;
-    infoVC.navigationItem.title = @"Track Info";
+    infoVC.navigationItem.title = @"Track Favorite";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     
     int row = [[NSNumber numberWithLong:indexPath.row] intValue];
@@ -547,8 +547,10 @@ titleForHeaderInSection:(NSInteger)section {
     if (indexPath.section == 1) {
         
         // for playlists
-        track = [playlists objectAtIndex:indexPath.row];
-        titleLabel = [playlist objectForKey:@"title"];
+        
+        infoVC.navigationItem.title = @"Playlist Info";
+        playlist = [playlists objectAtIndex:indexPath.row];
+        titleLabel = [playlist objectForKey:@"description"];
         
         self.trackDesc = titleLabel;
         
@@ -585,6 +587,62 @@ titleForHeaderInSection:(NSInteger)section {
         
         // BID Set delegate reference
         CKAPlaylistInfoViewController *controller = segue.destinationViewController;
+        controller.delegate = self;
+        
+        // BID Fixup create an empty string and send it to Detail View
+        NSNumber *s;
+        [[segue destinationViewController] setDetailItem:s];
+        
+    // For correct title
+    } else if (indexPath.section == 2) {
+        
+        if (self.tableView == self.searchDisplayController.searchResultsTableView) {
+            
+            track = [filteredTracks objectAtIndex:indexPath.row];
+            titleLabel = [track objectForKey:@"title"];
+            
+        } else {
+            
+            int temp = [[self.favTracks objectAtIndex:indexPath.row] intValue];
+            track = [tracks objectAtIndex:temp];
+            titleLabel = [track objectForKey:@"title"];
+        }
+        
+        self.trackDesc = titleLabel;
+        
+        CKATrackInfoViewController *targetVC = (CKATrackInfoViewController*)segue.destinationViewController;
+        targetVC.received = _trackDesc;
+        targetVC.favoriteTrack = track;
+        
+        if (indexPath.section == 0) {
+            
+            id checkFav = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+            targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
+                                 containsObject:checkFav];
+            /*
+             // For testing
+             BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
+             containsObject:checkFav];
+             */
+            
+            targetVC.returnPath = [[NSNumber numberWithLong:indexPath.row] intValue];
+            
+        } else {
+            
+            id checkFav = [NSString stringWithFormat:@"%d", self.fav];
+            targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
+                                 containsObject:checkFav];
+            
+            /*
+             BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
+             containsObject:checkFav];
+             */
+            
+            targetVC.returnPath = self.fav;
+        }
+        
+        // BID Set delegate reference
+        CKATrackInfoViewController *controller = segue.destinationViewController;
         controller.delegate = self;
         
         // BID Fixup create an empty string and send it to Detail View

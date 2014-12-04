@@ -11,7 +11,7 @@
 
 @interface CKAPlaylistInfoViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *trackLabel;
+@property (weak, nonatomic) IBOutlet UITextView *trackLabel;
 @property (weak, nonatomic) IBOutlet UILabel *toggleLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *favoritesSwitch;
 

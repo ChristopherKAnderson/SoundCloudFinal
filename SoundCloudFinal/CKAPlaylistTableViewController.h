@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSArray *playlists;
 
-@property (strong,nonatomic) NSArray *filteredPlaylists;
+//@property (strong,nonatomic) NSArray *filteredPlaylists;
 
 /*
 // For playlist navigation

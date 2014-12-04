@@ -7,6 +7,7 @@
 //
 
 #import "CKAPlaylistTableViewController.h"
+#import "CKATrackListTableViewController.h"
 #import "CKAViewController.h"
 #import "SCUI.H"
 
@@ -17,7 +18,7 @@
 @implementation CKAPlaylistTableViewController
 
 @synthesize playlists;
-@synthesize filteredPlaylists;
+//@synthesize filteredPlaylists;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

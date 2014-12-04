@@ -35,6 +35,7 @@
 		04AC523C1A204A6700802476 /* BIDFavoritesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC523B1A204A6700802476 /* BIDFavoritesList.m */; };
 		04AC523F1A2052BF00802476 /* CKATrackInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC523E1A2052BF00802476 /* CKATrackInfoViewController.m */; };
 		04D26BD01A293702000E5B4E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D26BCF1A293702000E5B4E /* libsqlite3.dylib */; };
+		04E54DDA1A30FFD6007F47A7 /* CKAPlaylistInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E54DD91A30FFD6007F47A7 /* CKAPlaylistInfoViewController.m */; };
 		04E7E80A1A2A9328003C0DCF /* libJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7E7F11A2A92E5003C0DCF /* libJSONKit.a */; };
 		04E7E80B1A2A9328003C0DCF /* libOAuth2Client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7E7FD1A2A92F6003C0DCF /* libOAuth2Client.a */; };
 		04E7E80C1A2A9328003C0DCF /* libOHAttributedLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7E7EA1A2A92D4003C0DCF /* libOHAttributedLabel.a */; };
@@ -199,6 +200,8 @@
 		04AC523D1A2052BF00802476 /* CKATrackInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKATrackInfoViewController.h; sourceTree = "<group>"; };
 		04AC523E1A2052BF00802476 /* CKATrackInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKATrackInfoViewController.m; sourceTree = "<group>"; };
 		04D26BCF1A293702000E5B4E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		04E54DD81A30FFD6007F47A7 /* CKAPlaylistInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAPlaylistInfoViewController.h; sourceTree = "<group>"; };
+		04E54DD91A30FFD6007F47A7 /* CKAPlaylistInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKAPlaylistInfoViewController.m; sourceTree = "<group>"; };
 		04E7E7D31A2A92A2003C0DCF /* SoundCloudAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SoundCloudAPI.xcodeproj; path = CocoaSoundCloudAPI/SoundCloudAPI.xcodeproj; sourceTree = "<group>"; };
 		04E7E7DC1A2A92BF003C0DCF /* SoundCloudUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SoundCloudUI.xcodeproj; path = CocoaSoundCloudUI/SoundCloudUI.xcodeproj; sourceTree = "<group>"; };
 		04E7E7E51A2A92D3003C0DCF /* OHAttributedLabel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHAttributedLabel.xcodeproj; path = OHAttributedLabel/OHAttributedLabel.xcodeproj; sourceTree = "<group>"; };
@@ -306,6 +309,8 @@
 				04070F031A2CD98600ED7860 /* CKAFlipsideViewController.m */,
 				04070F051A2D295900ED7860 /* CKAPlaylistTableViewController.h */,
 				04070F061A2D295900ED7860 /* CKAPlaylistTableViewController.m */,
+				04E54DD81A30FFD6007F47A7 /* CKAPlaylistInfoViewController.h */,
+				04E54DD91A30FFD6007F47A7 /* CKAPlaylistInfoViewController.m */,
 				04AB8A8E1A0C5BB8004B1441 /* Main.storyboard */,
 				04AB8A831A0C5BB8004B1441 /* Supporting Files */,
 				04AB8AF91A0C5E26004B1441 /* SoundCloud.bundle */,
@@ -601,6 +606,7 @@
 				04AC523F1A2052BF00802476 /* CKATrackInfoViewController.m in Sources */,
 				04AC52391A201ACA00802476 /* CKATrackListTableViewController.m in Sources */,
 				04AB8A891A0C5BB8004B1441 /* main.m in Sources */,
+				04E54DDA1A30FFD6007F47A7 /* CKAPlaylistInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

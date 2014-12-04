@@ -13,6 +13,7 @@
 <AVAudioPlayerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic, strong) NSArray *tracks;
+@property (nonatomic, strong) NSArray *playlists;
 @property (strong,nonatomic) NSArray *filteredTracks;
 
 @property (nonatomic, strong) AVAudioPlayer *player;
@@ -20,6 +21,7 @@
 @property IBOutlet UISearchBar *trackSearchBar;
 
 -(void) updateTracksAfterDelete;
+-(void) makePlaylistArray;
 
 /*
 // For segue to track list or playlist

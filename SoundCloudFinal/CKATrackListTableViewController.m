@@ -10,11 +10,12 @@
 #import "CKAViewController.h"
 #import "CKATrackListTableViewController.h"
 #import "CKATrackInfoViewController.h"
+#import "CKAPlaylistInfoViewController.h"
 #import "SCUI.H"
 #import <AVFoundation/AVFoundation.h>
 
 @interface CKATrackListTableViewController ()
-<DetailViewControllerDelegate> {
+<DetailViewControllerDelegate, DetailViewControllerDelegate1> {
     //
 }
 
@@ -33,6 +34,7 @@
 @implementation CKATrackListTableViewController
 
 @synthesize tracks;
+@synthesize playlists;
 @synthesize filteredTracks;
 @synthesize player;
 @synthesize trackSearchBar;
@@ -103,6 +105,9 @@
       sendingProgressHandler:nil
              responseHandler:handler];
     
+    // Make playlist array
+    [self makePlaylistArray];
+    
     // initialize favorite tracks array
     self.favTracks = [BIDFavoritesList sharedFavoritesList].favorites;
 }
@@ -166,6 +171,43 @@
              responseHandler:handler];
 }
 
+-(void) makePlaylistArray {
+    SCAccount *account = [SCSoundCloud account];
+    if (account == nil) {
+        
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Not Logged In"
+                              message:@"You must login first"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    SCRequestResponseHandler handler;
+    handler = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSError *jsonError = nil;
+        NSJSONSerialization *jsonResponse = [NSJSONSerialization
+                                             JSONObjectWithData:data
+                                             options:0
+                                             error:&jsonError];
+        if (!jsonError && [jsonResponse isKindOfClass:[NSArray class]]) {
+            
+            playlists = (NSArray *)jsonResponse;
+            [self.tableView reloadData];
+        }
+    };
+    
+    NSString *resourceURL = @"https://api.soundcloud.com/me/playlists.json";
+    [SCRequest performMethod:SCRequestMethodGET
+                  onResource:[NSURL URLWithString:resourceURL]
+             usingParameters:nil
+                 withAccount:account
+      sendingProgressHandler:nil
+             responseHandler:handler];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -178,8 +220,13 @@
     }
     */
     
+    /*
     // Return the number of sections.
     if ([self.favoritesList.favorites count] > 0) {
+        
+        return 3;
+        
+    } else if ([playlists count] > 0) {
         
         return 2;
         
@@ -187,6 +234,9 @@
         
         return 1;
     }
+    */
+    
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -202,6 +252,10 @@
             return [tracks count];
         }
         
+    } else if (section == 1) {
+        
+        return [playlists count];
+        
     } else {
         
         return [self.favTracks count];
@@ -214,6 +268,10 @@ titleForHeaderInSection:(NSInteger)section {
         
         return @"All Tracks";
         
+    } else if (section == 1) {
+        
+        return @"All Playlists";
+        
     } else {
         
         return @"My Favorite Tracks";
@@ -224,6 +282,7 @@ titleForHeaderInSection:(NSInteger)section {
 {
     static NSString *NormalCell = @"NormalCell";
     static NSString *FavoritesCell = @"FavoritesCell";
+    static NSString *PlaylistsCell = @"PlaylistsCell";
     UITableViewCell *cell = nil;
     
     if (indexPath.section == 0) {
@@ -256,6 +315,25 @@ titleForHeaderInSection:(NSInteger)section {
             cell.detailTextLabel.text = subtitle;
             
         }
+        
+    } else if (indexPath.section == 1) {
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:PlaylistsCell];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:NormalCell];
+        }
+        
+        // To help keep track of indexes
+        int row = [[NSNumber numberWithLong:indexPath.row] intValue];
+        NSString *subtitle = [NSString stringWithFormat:@"%d", row];
+        NSLog(@"row = %d", row);
+            
+        NSDictionary *track = [playlists objectAtIndex:indexPath.row];
+        cell.textLabel.text = [track objectForKey:@"title"];
+        cell.detailTextLabel.text = subtitle;
         
     } else {
         
@@ -342,7 +420,10 @@ titleForHeaderInSection:(NSInteger)section {
                          }];
             }
             
-        } else {
+        } else if (indexPath.section == 1) {
+            // For playlists
+            
+        }else {
             
             int fav = [[self.favTracks objectAtIndex:indexPath.row] intValue];
             NSDictionary *track = [self.tracks objectAtIndex:fav];
@@ -422,7 +503,10 @@ titleForHeaderInSection:(NSInteger)section {
                      }];
         }
         
-    } else {
+    } else if (indexPath.section == 1) {
+        // For playlists
+        
+    }else {
         
         int fav = [[self.favTracks objectAtIndex:indexPath.row] intValue];
         NSDictionary *track = [self.tracks objectAtIndex:fav];
@@ -457,59 +541,110 @@ titleForHeaderInSection:(NSInteger)section {
     NSLog(@"row = %d", row);
     
     NSDictionary *track;
+    NSDictionary *playlist;
     NSString *titleLabel;
     
-    if (self.tableView == self.searchDisplayController.searchResultsTableView) {
+    if (indexPath.section == 1) {
         
-        track = [filteredTracks objectAtIndex:indexPath.row];
-        titleLabel = [track objectForKey:@"title"];
+        // for playlists
+        track = [playlists objectAtIndex:indexPath.row];
+        titleLabel = [playlist objectForKey:@"title"];
+        
+        self.trackDesc = titleLabel;
+        
+        CKAPlaylistInfoViewController *targetVC = (CKAPlaylistInfoViewController*)segue.destinationViewController;
+        targetVC.received = _trackDesc;
+        targetVC.favoriteTrack = track;
+        
+        if (indexPath.section == 0) {
+            
+            id checkFav = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+            targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
+                                 containsObject:checkFav];
+            /*
+             // For testing
+             BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
+             containsObject:checkFav];
+             */
+            
+            targetVC.returnPath = [[NSNumber numberWithLong:indexPath.row] intValue];
+            
+        } else {
+            
+            id checkFav = [NSString stringWithFormat:@"%d", self.fav];
+            targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
+                                 containsObject:checkFav];
+            
+            /*
+             BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
+             containsObject:checkFav];
+             */
+            
+            targetVC.returnPath = self.fav;
+        }
+        
+        // BID Set delegate reference
+        CKAPlaylistInfoViewController *controller = segue.destinationViewController;
+        controller.delegate = self;
+        
+        // BID Fixup create an empty string and send it to Detail View
+        NSNumber *s;
+        [[segue destinationViewController] setDetailItem:s];
         
     } else {
+    
+        if (self.tableView == self.searchDisplayController.searchResultsTableView) {
         
-        track = [tracks objectAtIndex:indexPath.row];
-        titleLabel = [track objectForKey:@"title"];
-    }
-    
-    self.trackDesc = titleLabel;
-    
-    CKATrackInfoViewController *targetVC = (CKATrackInfoViewController*)segue.destinationViewController;
-    targetVC.received = _trackDesc;
-    targetVC.favoriteTrack = track;
-    
-    if (indexPath.section == 0) {
+            track = [filteredTracks objectAtIndex:indexPath.row];
+            titleLabel = [track objectForKey:@"title"];
         
-        id checkFav = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
-        targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
+        } else {
+        
+            track = [tracks objectAtIndex:indexPath.row];
+            titleLabel = [track objectForKey:@"title"];
+        }
+    
+        self.trackDesc = titleLabel;
+    
+        CKATrackInfoViewController *targetVC = (CKATrackInfoViewController*)segue.destinationViewController;
+        targetVC.received = _trackDesc;
+        targetVC.favoriteTrack = track;
+    
+        if (indexPath.section == 0) {
+        
+            id checkFav = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+            targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
                              containsObject:checkFav];
-        /*
-        // For testing
-        BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
+            /*
+             // For testing
+             BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
                       containsObject:checkFav];
-        */
+             */
         
-        targetVC.returnPath = [[NSNumber numberWithLong:indexPath.row] intValue];
+            targetVC.returnPath = [[NSNumber numberWithLong:indexPath.row] intValue];
         
-    } else {
+        } else {
         
-        id checkFav = [NSString stringWithFormat:@"%d", self.fav];
-        targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
+            id checkFav = [NSString stringWithFormat:@"%d", self.fav];
+            targetVC.favorite = [[BIDFavoritesList sharedFavoritesList].favorites
                              containsObject:checkFav];
         
-        /*
-        BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
+            /*
+             BOOL check = [[BIDFavoritesList sharedFavoritesList].favorites
                       containsObject:checkFav];
-        */
+             */
         
-        targetVC.returnPath = self.fav;
+            targetVC.returnPath = self.fav;
+        }
+    
+        // BID Set delegate reference
+        CKATrackInfoViewController *controller = segue.destinationViewController;
+        controller.delegate = self;
+    
+        // BID Fixup create an empty string and send it to Detail View
+        NSNumber *s;
+        [[segue destinationViewController] setDetailItem:s];
     }
-    
-    // BID Set delegate reference
-    CKATrackInfoViewController *controller = segue.destinationViewController;
-    controller.delegate = self;
-    
-    // BID Fixup create an empty string and send it to Detail View
-    NSNumber *s;
-    [[segue destinationViewController] setDetailItem:s];
 }
 
 // BID define the delegated method that adds the returned string to the table and master view
@@ -522,6 +657,20 @@ titleForHeaderInSection:(NSInteger)section {
     // Return boolean for playlist nav
     self.onceToken = YES;
     */
+    
+    [self.tableView reloadData];
+}
+
+// BID define the delegated method that adds the returned string to the table and master view
+- (void)detailViewController1:(CKAPlaylistInfoViewController *)detailViewController
+           didToggleFavorite:(int)returnPathBack withState:(NSString *)state {
+    
+    NSLog(@"didToggleFavorite: %d - %@", returnPathBack, state);       // turn this off eventually
+    
+    /*
+     // Return boolean for playlist nav
+     self.onceToken = YES;
+     */
     
     [self.tableView reloadData];
 }

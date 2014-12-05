@@ -362,6 +362,43 @@
     [_objects addObject:self.name.text];
     
     [self.trackPicker reloadAllComponents];
+    
+    // open database
+    sqlite3 *database;
+    if (sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
+        sqlite3_close(database);
+        NSAssert(0, @"Failed to open database");
+    }
+    
+    // preparet statement to get row count from database
+    sqlite3_stmt *stmt;
+    int rowsDB = 0;
+    long rowsObjects = [_objects count];
+    NSString *countRows = @"SELECT COUNT (*) FROM NAMES;";
+    if (sqlite3_prepare_v2(database, [countRows UTF8String], -1, &stmt, nil) == SQLITE_OK) {
+        if (sqlite3_step(stmt) != SQLITE_ERROR) {
+            rowsDB = sqlite3_column_int(stmt, 0);
+        }
+        sqlite3_finalize(stmt);
+    }
+    
+    // sync mutable objects array with rows in database
+    for (int i = 0; i < rowsObjects; i ++) {
+        NSString *field = _objects[i];
+        char *update = "INSERT OR REPLACE INTO NAMES (ROW, NAME_DATA) "
+        "VALUES (?, ?);";
+        char *errorMsg = NULL;
+        if (sqlite3_prepare_v2(database, update, -1, &stmt, nil) == SQLITE_OK) {
+            sqlite3_bind_int(stmt, 1, i);
+            sqlite3_bind_text(stmt, 2, [field UTF8String], -1, NULL);
+        }
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            NSAssert(0, @"Error updating table: %s", errorMsg);
+        }
+        sqlite3_finalize(stmt);
+    }
+    
+    sqlite3_close(database);
 }
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{

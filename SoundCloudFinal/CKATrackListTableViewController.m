@@ -223,15 +223,10 @@
     /*
     // Return the number of sections.
     if ([self.favoritesList.favorites count] > 0) {
-        
         return 3;
-        
     } else if ([playlists count] > 0) {
-        
         return 2;
-        
     } else {
-        
         return 1;
     }
     */
